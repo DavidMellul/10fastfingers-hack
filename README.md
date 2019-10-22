@@ -2,14 +2,20 @@
 Copy-paste this in your browser console to get maximal words per minute  -> https://10fastfingers.com/typing-test/english
 
 ```javascript
-var input = $('#text_typed')[0] || $('#inputfield')[0];
-var ev = $.Event('keyup')
-ev.which = 32
-setInterval(function() {
-    if ($('.highlight')[0]) {
-        input.focus()
-        input.value = $('.highlight').text()
-        $(input).trigger(ev)
-    }
-}, 100)
+(function () {
+    const input = document.querySelector('input[type=text]');
+
+    const e = new KeyboardEvent('keyup', {
+        which: 32,
+        keyCode: 32,
+    });
+
+    setInterval(function() {
+        const highlight = document.querySelector('.highlight');
+
+        input.focus();
+        input.value = highlight && highlight.textContent || '';
+        input.dispatchEvent(e);
+    }, 200);
+})();
 ```
